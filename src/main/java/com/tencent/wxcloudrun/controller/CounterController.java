@@ -7,10 +7,7 @@ import com.tencent.wxcloudrun.dto.CounterRequest;
 import com.tencent.wxcloudrun.model.Counter;
 import com.tencent.wxcloudrun.service.CounterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -36,16 +33,21 @@ public class CounterController {
    * 获取当前计数
    * @return API response json
    */
-  @GetMapping(value = "/api/count")
-  ApiResponse get() {
-    logger.info("/api/count get request");
-    Optional<Counter> counter = counterService.getCounter(1);
-    Integer count = 0;
-    if (counter.isPresent()) {
-      count = counter.get().getCount();
-    }
+  @GetMapping(value = "/znsj")
+  String get(@RequestParam String signature, @RequestParam String timestamp, @RequestParam String nonce, @RequestParam String echostr) {
+//    logger.info("/api/count get request");
+//    Optional<Counter> counter = counterService.getCounter(1);
+//    Integer count = 0;
+//    if (counter.isPresent()) {
+//      count = counter.get().getCount();
+//    }
 
-    return ApiResponse.ok(count);
+//    return ApiResponse.ok(123);
+    System.out.println("signature："+signature);
+    System.out.println("timestamp："+timestamp);
+    System.out.println("nonce："+nonce);
+    System.out.println("echostr："+echostr);
+    return echostr;
   }
 
 
@@ -79,5 +81,5 @@ public class CounterController {
       return ApiResponse.error("参数action错误11");
     }
   }
-  
+
 }
